@@ -161,7 +161,7 @@ const app = {
             _this.isPlaying = true;
             player.classList.add('playing');
             cdThumbAnimate.play();
-            document.getElementById('loli'+_this.currenIndex).innerHTML='<img src="loli.gif" style="width: 50px;height:50px">';
+            document.getElementById('loli'+_this.currenIndex).innerHTML='<img src="../loli.gif" style="width: 50px;height:50px">';
         }
 
         // Khi song bị pause
