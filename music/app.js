@@ -26,14 +26,14 @@ const repeatBtn = $('.btn-repeat');
 const playList = $('.playlist');
 const musicDuration = $('.duration');
 const current = $('.current');
-const show = $('.option');
 const loli = $('.loli');
-
+const add = $('.add');
 const app = {
     currenIndex: 0,  // vi tri index
     isPlaying: false,
     isRandom: false,
     isRepeat: false,
+    isTrash: false,
     songs: [
         {
             name: 'Nevada',
@@ -106,16 +106,16 @@ const app = {
                     <h3 class="title">${song.name}</h3>
                     <p class="author">${song.singer}</p>
                 </div>
-                <div class="loli" id = 'loli${index}'></div>
-                <div class="option">
-                    <i class="fas fa-crown"></i>
-                    <div class="show"></div>
+                <div class="loli" id = 'loli${index}'>             
                 </div>
+                <div class="option" ><i class="fas fa-crown"></i></div>
+                <div class="trash"><i class="fas fa-trash" style="size: 5px ;color: #ec1f55" ></i></div>
             </div>
             `
         })
         playList.innerHTML = htmls.join('');
     },
+
 
     defineProperties: function () {
         Object.defineProperty(this, 'currentSong', {
@@ -127,6 +127,7 @@ const app = {
     handledEvents: function () {
         const _this = this;
         const cdWidth = cd.offsetWidth;
+
 
         // Xử lý CD quay / dừng
         const cdThumbAnimate = cdThumb.animate([
@@ -146,6 +147,17 @@ const app = {
             cd.style.opacity = newCdWidth / cdWidth;
         }
 
+        add.onclick = function () {
+            name = prompt('Enter song Name : ');
+            tg = prompt('Enter Music Link');
+            _this.songs.push({
+                name: name,
+                singer: `<a href="${tg}">${tg}</a>`
+            })
+            _this.render();
+
+        }
+
         //Xử lý khi click play
         playBtn.onclick = function () {
             if (_this.isPlaying) {
@@ -161,7 +173,8 @@ const app = {
             _this.isPlaying = true;
             player.classList.add('playing');
             cdThumbAnimate.play();
-            document.getElementById('loli'+_this.currenIndex).innerHTML='<img src="../loli.gif" style="width: 50px;height:50px">';
+            document.getElementById('loli' + _this.currenIndex).innerHTML =
+                '<img src="../loli.gif" style="width: 50px;height:50px">';
         }
 
         // Khi song bị pause
@@ -169,7 +182,7 @@ const app = {
             _this.isPlaying = false;
             player.classList.remove('playing');
             cdThumbAnimate.pause();
-            document.getElementById('loli'+_this.currenIndex).innerHTML ='';
+            document.getElementById('loli' + _this.currenIndex).innerHTML = '';
         }
 
 
@@ -255,24 +268,38 @@ const app = {
 
 
         // Lắng nghe hành vi vào playList
-        playList.onclick = function (e) {
+        playList.onclick = function (e ,index) {
             const songNote = e.target.closest('.song:not(.active)');
-            const showMore = e.target.closest('.option');
-            if (songNote || showMore) {
+            const trash = e.target.closest('.trash');
+            if (trash) {
+                let a = confirm('Are you sure ?');
+                console.log(e.target.index);
+                if (a) {
+                    let x = prompt('Enter the order of songs you want to delete')
+                    x = x - 1;
+                    _this.songs.splice(x, 1);
+                    audio.pause();
+                    _this.render();
+                }else{
+                    alert('Are you kidding me?');
+                }
+
+            }
+
+            if (songNote) {
                 // Xử lý khi click vào song
-                if (songNote && !showMore) {
+                if (songNote && !trash) {
                     _this.currenIndex = Number(songNote.dataset.index);
                     _this.loadCurrenSong();
                     audio.play();
                     _this.render();
-                } else if (showMore) {
-                    console.log(1);
+
                 }
             }
         }
 
-    },
 
+    },
 
     scrollToActiveSong: function () {
         setTimeout(() => {
@@ -309,6 +336,11 @@ const app = {
         this.currenIndex = newIndex;
         this.loadCurrenSong();
     },
+
+    addSongs: function () {
+        this.songs.push(1);
+    },
+
     start: function () {
         this.defineProperties(); // Định nghĩa các thuộc tính cho object
 

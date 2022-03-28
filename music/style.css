@@ -22,6 +22,7 @@ html {
     position: relative;
     max-width: 480px;
     margin: 0 auto;
+    overflow: hidden;
 }
 
 .player .icon-pause {
@@ -235,6 +236,8 @@ header h2 {
     color: #999;
     font-size: 18px;
 }
+
 .song .option {
     color: gold;
 }
+
