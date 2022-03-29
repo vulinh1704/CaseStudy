@@ -280,8 +280,8 @@ const app = {
                     let x = prompt('Enter the order of songs you want to delete');
                     x = x - 1;
                     _this.songs.splice(x, 1);
-                    nextBtn.click();
                     audio.pause();
+                    nextBtn.click();
                     _this.render();
                 }else{
                     alert('Are you kidding me?');
