@@ -48,8 +48,8 @@ const app = {
             image: '../picture/song2.png'
         },
         {
-            name: 'Tik Tok',
-            singer: 'Ma-Mixi',
+            name: 'Sakura_Taro',
+            singer: 'Sakura',
             path: '../musicMp3/song3.mp3',
             image: '../picture/song3.png'
         },
@@ -94,7 +94,19 @@ const app = {
             singer: 'LaoGia',
             path: '../musicMp3/song10.mp3',
             image: '../picture/song10.png'
-        }
+        },
+        {
+            name: 'Tru Mua',
+            singer: 'HKT',
+            path: '../musicMp3/song11.mp3',
+            image: '../picture/song11.png'
+        },
+        {
+            name: 'Two Moons',
+            singer: 'BoyWithUke',
+            path: '../musicMp3/song12.mp3',
+            image: '../picture/song12.png'
+        },
     ],
     render: function () {
         const htmls = this.songs.map((song, index) => {
