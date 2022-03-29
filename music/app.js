@@ -131,10 +131,10 @@ const app = {
 
         // Xử lý CD quay / dừng
         const cdThumbAnimate = cdThumb.animate([
-            {transform: 'rotate(360deg)'} // thuộc tính css
+            {transform: 'rotate(360deg)'}
         ], {
-            duration: 10000, // quay trong 10 seconds
-            iterations: Infinity // tham minh function (loop vo cung)
+            duration: 10000,
+            iterations: Infinity
         })
         cdThumbAnimate.pause();
 
@@ -147,6 +147,7 @@ const app = {
             cd.style.opacity = newCdWidth / cdWidth;
         }
 
+        //add song
         add.onclick = function () {
             name = prompt('Enter song Name : ');
             tg = prompt('Enter Music Link');
@@ -273,17 +274,18 @@ const app = {
             const trash = e.target.closest('.trash');
             if (trash) {
                 let a = confirm('Are you sure ?');
-                console.log(e.target.index);
+
+                // Xử lý xóa song
                 if (a) {
-                    let x = prompt('Enter the order of songs you want to delete')
+                    let x = prompt('Enter the order of songs you want to delete');
                     x = x - 1;
                     _this.songs.splice(x, 1);
+                    nextBtn.click();
                     audio.pause();
                     _this.render();
                 }else{
                     alert('Are you kidding me?');
                 }
-
             }
 
             if (songNote) {
@@ -297,8 +299,6 @@ const app = {
                 }
             }
         }
-
-
     },
 
     scrollToActiveSong: function () {
@@ -337,18 +337,14 @@ const app = {
         this.loadCurrenSong();
     },
 
-    addSongs: function () {
-        this.songs.push(1);
-    },
-
     start: function () {
         this.defineProperties(); // Định nghĩa các thuộc tính cho object
 
-        this.handledEvents(); // Bắt các sự kiện
+        this.handledEvents();    // Bắt các sự kiện
 
-        this.loadCurrenSong(); // Tải các thông tin bài hát tiên vào UI
+        this.loadCurrenSong();   // Tải các thông tin bài hát tiên vào UI
 
-        this.render(); // kết xuất Playlis
+        this.render();           // kết xuất Playlis
 
     }
 }
